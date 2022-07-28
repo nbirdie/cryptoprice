@@ -38,7 +38,7 @@ bot.command("start", (ctx) => {
 bot.on("message", (msg) => {
   let rate;
   // let crypto = msg.message.text.slice(1, msg.message.text.length);
-  let crypto = msg.message.text;
+  let crypto = msg.message.text.toLowerCase();
   if (crypto === "/list") {
     
   }
