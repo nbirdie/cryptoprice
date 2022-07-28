@@ -1,7 +1,7 @@
 // import Telegraf from "telegraf"
 // import BOT_TOKEN from "./settings.js"
 
-const BOT_TOKEN = "****";
+const BOT_TOKEN = "5490133596:AAHPuLc6R9-ccnq2saViXI5_EDO1rS_t12Y";
 
 const express = require("express");
 const expressApp = express();
@@ -39,11 +39,15 @@ bot.on("message", (msg) => {
   let rate;
   // let crypto = msg.message.text.slice(1, msg.message.text.length);
   let crypto = msg.message.text;
+  if (crypto === "/list") {
+    
+  }
   axios.get(createUrl(crypto, "usd")).then((response) => {
     rate = response.data[crypto];
     const message = `The ${crypto} price is ${rate.usd}USD`;
     bot.telegram.sendMessage(msg.chat.id, message, {});
   });
+
 });
 
 bot.launch();
