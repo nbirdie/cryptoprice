@@ -1,7 +1,7 @@
 // import Telegraf from "telegraf"
 // import BOT_TOKEN from "./settings.js"
 
-const BOT_TOKEN = "5490133596:AAHPuLc6R9-ccnq2saViXI5_EDO1rS_t12Y";
+const BOT_TOKEN = "****";
 
 const express = require("express");
 const expressApp = express();
