@@ -16,9 +16,9 @@
 В случае запуска с локальной машины следующая последовательность действий:
 * Склонировать репозиторий 
 * Установить пакеты
-`npm install express
-npm install telegraf
-npm install axios`
+`npm install express  
+npm install telegraf  
+npm install axios`  
 * Запустить бота из папки репозитория 
 `node bot`
 
