@@ -1,17 +1,18 @@
-const BOT_TOKEN = "5490133596:AAHPuLc6R9-ccnq2saViXI5_EDO1rS_t12Y";
+import {fetchCryptoRateByName} from "./bot_skills.js"
+import settings from "./settings.js"
+import express from "express"
+import axios from "axios"
+import path from "path"
+import dotenv from "dotenv"
+import { Telegraf } from "telegraf"
 
-const express = require("express");
 const expressApp = express();
-const axios = require("axios");
-const path = require("path");
 const port = process.env.PORT || 3000;
 expressApp.use(express.static("static"));
 expressApp.use(express.json());
-require("dotenv").config();
+dotenv.config();
 
-const { Telegraf } = require("telegraf");
-
-const bot = new Telegraf(BOT_TOKEN);
+const bot = new Telegraf(settings.BOT_TOKEN);
 
 expressApp.get("/", (req, res) => {
   res.sendFile(path.join(__dirname + "/index.html"));
@@ -38,7 +39,9 @@ bot.on("message", (msg) => {
   let crypto = msg.message.text.toLowerCase();
   if (crypto === "/list") {
   }
+  
   axios.get(createUrl(crypto, "usd")).then((response) => {
+    console.log(response);
     rate = response.data[crypto];
     if (rate != undefined) {
       const message = `The ${crypto} price is ${rate.usd}USD`;
