@@ -37,14 +37,20 @@ bot.on("message", (msg) => {
   // let crypto = msg.message.text.slice(1, msg.message.text.length);
   let crypto = msg.message.text.toLowerCase();
   if (crypto === "/list") {
-    
   }
   axios.get(createUrl(crypto, "usd")).then((response) => {
     rate = response.data[crypto];
-    const message = `The ${crypto} price is ${rate.usd}USD`;
-    bot.telegram.sendMessage(msg.chat.id, message, {});
+    if (rate != undefined) {
+      const message = `The ${crypto} price is ${rate.usd}USD`;
+      bot.telegram.sendMessage(msg.chat.id, message, {});
+    } else {
+      bot.telegram.sendMessage(
+        msg.chat.id,
+        'You made mistake in crypto full name or CoinGesko does not have this crypto. Please try again. For instance, "bitcoin".',
+        {}
+      );
+    }
   });
-
 });
 
 bot.launch();
