@@ -1,25 +1,24 @@
 // import Telegraf from "telegraf"
 // import BOT_TOKEN from "./settings.js"
 
-const BOT_TOKEN = "5490133596:AAHPuLc6R9-ccnq2saViXI5_EDO1rS_t12Y"
+const BOT_TOKEN = "5490133596:AAHPuLc6R9-ccnq2saViXI5_EDO1rS_t12Y";
 
-const express = require('express')
-const expressApp = express()
+const express = require("express");
+const expressApp = express();
 const axios = require("axios");
-const path = require("path")
+const path = require("path");
 const port = process.env.PORT || 3000;
-expressApp.use(express.static('static'))
+expressApp.use(express.static("static"));
 expressApp.use(express.json());
-require('dotenv').config();
+require("dotenv").config();
 
-const { Telegraf } = require('telegraf');
+const { Telegraf } = require("telegraf");
 
 const bot = new Telegraf(BOT_TOKEN);
 
 expressApp.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname + '/index.html'));
+  res.sendFile(path.join(__dirname + "/index.html"));
 });
-
 
 //функция для создания url для выгрузки цены криптовалютыcre
 const createUrl = (crypto, currency) => {
@@ -27,14 +26,16 @@ const createUrl = (crypto, currency) => {
 };
 
 //приветствие
-bot.command('start', ctx => {
-    console.log(ctx.from)
-    bot.telegram.sendMessage(ctx.chat.id, 'Hello there! Welcome to the CryptoCurrenciesPricesBot telegram bot.\nI respond to /ethereum. Please try it', {
-    })
-  })
+bot.command("start", (ctx) => {
+  console.log(ctx.from);
+  bot.telegram.sendMessage(
+    ctx.chat.id,
+    "Hello there! Welcome to the CryptoCurrenciesPricesBot telegram bot.",
+    {}
+  );
+});
 
-
-bot.on('message', (msg) => {
+bot.on("message", (msg) => {
   let rate;
   // let crypto = msg.message.text.slice(1, msg.message.text.length);
   let crypto = msg.message.text;
@@ -43,6 +44,6 @@ bot.on('message', (msg) => {
     const message = `The ${crypto} price is ${rate.usd}USD`;
     bot.telegram.sendMessage(msg.chat.id, message, {});
   });
-})
+});
 
-bot.launch()
+bot.launch();
