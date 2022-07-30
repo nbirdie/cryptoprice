@@ -21,11 +21,12 @@ bot.on("message", (msg) => {
   let rate;
   // let crypto = msg.message.text.slice(1, msg.message.text.length);
   let crypto = msg.message.text.toLowerCase();
-  if (crypto.length === 3) {
+  if (crypto.length <= 4) {
     axios
       .get(`${settings.API_ROUTES.priceByTicker}/${crypto}/metrics`)
       .then((response) => {
         rate = response.data.data.market_data.price_usd;
+        console.log(response.data.data.market_data);
         if (rate != undefined) {
           const message = `The ${crypto.toUpperCase()} price is ${Math.round(rate * 100)/100}USD`;
           bot.telegram.sendMessage(msg.chat.id, message, {});

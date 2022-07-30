@@ -13,8 +13,8 @@ const settings = {
       "Hello there! Welcome to the CryptoCurrenciesPricesBot telegram bot.",
     errors: {
       crypto_by_id:
-        'You made mistake in crypto full name or CoinGesko does not have this crypto. ' +
-        'Please try again. For instance, "bitcoin".',
+        'You made mistake in crypto name or we do not have this crypto in our database. ' +
+        'Please try again. For instance, "bitcoin" or "btc".',
     },
   },
 };
