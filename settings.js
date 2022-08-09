@@ -10,7 +10,7 @@ const settings = {
   },
   BOT_MESSAGES: {
     start:
-      "Hello there! Welcome to the CryptoCurrenciesPricesBot telegram bot.",
+      "Hello there! Welcome to the telegram bot for geeting crypto prices. To start type the ticker like 'btc' or 'eth'.",
     errors: {
       crypto_by_id:
         'You made mistake in crypto name or we do not have this crypto in our database. ' +

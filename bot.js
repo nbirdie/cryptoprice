@@ -21,14 +21,21 @@ bot.on("message", (msg) => {
   let rate;
   // let crypto = msg.message.text.slice(1, msg.message.text.length);
   let crypto = msg.message.text.toLowerCase();
+
+  axios.get('https://data.messari.io/api/v1/news?fields=title').then((response) => {
+    const news = response;
+    console.log(response);
+  })
+
   if (crypto.length <= 4) {
     axios
       .get(`${settings.API_ROUTES.priceByTicker}/${crypto}/metrics`)
       .then((response) => {
         rate = response.data.data.market_data.price_usd;
-        console.log(response.data.data.market_data);
         if (rate != undefined) {
-          const message = `The ${crypto.toUpperCase()} price is ${Math.round(rate * 100)/100}USD`;
+          const message = `The ${crypto.toUpperCase()} price is ${
+            Math.round(rate * 100000) / 100000
+          }USD`;
           bot.telegram.sendMessage(msg.chat.id, message, {});
         } else {
           bot.telegram.sendMessage(
@@ -37,6 +44,13 @@ bot.on("message", (msg) => {
             {}
           );
         }
+      })
+      .catch((error) => {
+        bot.telegram.sendMessage(
+          msg.chat.id,
+          settings.BOT_MESSAGES.errors.crypto_by_id,
+          {}
+        );
       });
   } else {
     const currency = "usd";
@@ -56,9 +70,16 @@ bot.on("message", (msg) => {
             {}
           );
         }
+      })
+      .catch((error) => {
+        bot.telegram.sendMessage(
+          msg.chat.id,
+          settings.BOT_MESSAGES.errors.crypto_by_id,
+          {}
+        );
       });
   }
+  
 });
-
 
 bot.launch();
